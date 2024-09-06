@@ -62,7 +62,7 @@ def main():
     # Checking if the user has introduced the OpenAI API Key, if not, a warning is displayed
     if openai_api_key == "" or openai_api_key is None or "sk-" not in openai_api_key:
         st.write("#")
-        st.warning("⬅️ Please introduce your OpenAI API Key (make sure to have funds) to continue...")
+        st.warning("⬅️ Please introduce your OpenAI API Key (if you not have funds yhe app is not going to work")
 
     else:
         client = OpenAI(api_key=openai_api_key)
@@ -140,7 +140,7 @@ def main():
                 cols_img = st.columns(2)
 
                 with cols_img[0]:
-                    with st.popover("📁 Upload"):
+                    with st.popover("📁 Upload a file"):
                         st.file_uploader(
                             "Upload an image", 
                             type=["png", "jpg", "jpeg"], 
@@ -150,7 +150,7 @@ def main():
                         )
 
                 with cols_img[1]:                    
-                    with st.popover("📸 Camera"):
+                    with st.popover("📸 Take a Picture"):
                         activate_camera = st.checkbox("Activate camera")
                         if activate_camera:
                             st.camera_input(
@@ -161,13 +161,13 @@ def main():
 
             # Audio Upload
             st.write("#")
-            st.write("### **🎤 Add an audio:**")
+            st.write("### **🎤 Record yourself:**")
 
             audio_prompt = None
             if "prev_speech_hash" not in st.session_state:
                 st.session_state.prev_speech_hash = None
 
-            speech_input = audio_recorder("Press to talk:", icon_size="3x", neutral_color="#6ca395", )
+            speech_input = audio_recorder("Press and speak:", icon_size="1x", neutral_color="#6ca395", )
             if speech_input and st.session_state.prev_speech_hash != hash(speech_input):
                 st.session_state.prev_speech_hash = hash(speech_input)
                 transcript = client.audio.transcriptions.create(
